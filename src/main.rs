@@ -9,16 +9,17 @@ fn main() {
         panic!("Not enough arguments");
     }
 
-    let filename = args[1].to_string();
-    filereader(filename);
+    let contents = filereader(args[1].to_string());
+    println!("Content:\n{}", contents);
 }
 
-fn filereader(filename: String) {
-    println!("{}", filename);
+fn filereader(filename: String) -> String {
     let mut f = File::open(filename).expect("file not found");
     let mut contents = String::new();
-
     f.read_to_string(&mut contents)
         .expect("something went wrong reading the file");
-    println!("Content:\n{}", contents)
+
+    contents
 }
+
+fn parse(content: String) {}
