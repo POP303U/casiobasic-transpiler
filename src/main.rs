@@ -1,6 +1,8 @@
 use std::env;
 use std::fs::File;
-use std::io::{self, Read};
+use std::io::prelude::*;
+use std::io::Read;
+use std::path::Path;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -10,7 +12,7 @@ fn main() {
     }
 
     let contents = filereader(args[1].to_string());
-    println!("Content:\n{}", contents);
+    parse(contents)
 }
 
 fn filereader(filename: String) -> String {
@@ -22,4 +24,18 @@ fn filereader(filename: String) -> String {
     contents
 }
 
-fn parse(content: String) {}
+fn parse(content: String) {
+    let path = Path::new("output.txt");
+    let display = path.display();
+    let content: Vec<&str> = content.lines().collect();
+
+    let mut file = match File::create(&path) {
+        Err(why) => panic!("couldn't create {}: {}", display, why),
+        Ok(file) => file,
+    };
+
+    match file.write_all(b"Hello, World!") {
+        Err(why) => panic!("couldn't write to: {}: {}", display, why),
+        Ok(file) => file,
+    }
+}
