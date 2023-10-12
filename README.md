@@ -1,2 +1,2 @@
 # casiobasic-transpiler
-Transpiles pseudocode to Casio Basic
+Transpiles Lua to Casio Basic

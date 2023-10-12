@@ -1,0 +1,156 @@
+'ProgramMode:RUN
+Locate 1,2,"_#E6B2_=COOKIE  COLLECTOR=_#E6B2_"
+Locate 1,3,"    _#E6B2_=BY  NICO=_#E6B2_"
+Locate 1,4,"******************************************"
+Locate 1,5,"**   _#E6A6_          _#E6A0_    **"
+Locate 1,6,"**       _#E6A0_           **"
+Locate 1,7,"******************************************"
+While Getkey=31
+WhileEnd
+While Getkey<>31
+WhileEnd
+ClrText
+Locate 1,2,"CONTROLS:"
+Locate 1,3,"MOVE  [_#E692__#E691__#E693__#E690_]"
+Locate 1,4,"SHOP  [0]"
+Locate 1,5,"SHOP BUY  [1-6]"
+Locate 1,6,"SHOP EXIT [.]"
+While Getkey=31
+WhileEnd
+While Getkey<>31
+WhileEnd
+1->X
+1->Y
+1->V
+1->W
+5->A
+5->B
+100000->P
+0->S
+150->L
+1->M
+0->U
+0->C
+50->D
+
+Lbl L
+ClrText
+Locate A,B,"_#E5AD_"
+While 1
+Getkey=27=>X<21=>X+1->X
+Getkey=38=>X>1=>X-1->X
+Getkey=37=>Y<7=>Y+1->Y
+Getkey=28=>Y>1=>Y-1->Y
+X<>V Or Y<>W=>Locate V,W," "
+For 0->I To L
+Next
+
+Getkey=71=>Goto S
+
+Locate X,Y,"_#E6A6_"
+Locate 1,1,P
+
+Locate 1,3,C
+Locate 1,4,U
+Locate 1,4,D
+Locate 1,5,L
+X->V
+Y->W
+If X=A And Y=B
+Then P+M->P
+Int ((21*Ran#)+1)->A
+Int ((7*Ran#)+1)->B
+Locate A,B,"_#E6A0_"
+IfEnd
+
+
+U=1 And C>=D=>P+1->P
+C+1->C
+U=1 And C>=D=>P+1->P
+C>=D=>0->C
+WhileEnd
+
+Lbl S
+ClrText
+Locate 1,1,"========SHOP========="
+
+Locate 1,2,"**25P"
+Locate 14,2,"SPEED[1]"
+Locate 1,3,"**50P"
+Locate 14,3,"ADDIT[2]"
+Locate 1,4,"**100P"
+Locate 14,4,"AUTOM[3]"
+Locate 1,5,"**300P"
+Locate 14,5,"FRUI+[4]"
+Locate 1,6,"**500P"
+Locate 14,6,"MO+10[5]"
+Locate 1,7,"**1000P"
+Locate 14,7,"MO+20[6]"
+While 1
+
+If Getkey=72
+Then If P>=25
+Then Locate 1,1,"BOUGHTChar!"
+L-10->L
+P-25->P
+Goto L
+Else Locate 1,1,"NO MONEY"
+IfEnd
+IfEnd
+
+If Getkey=62
+Then If P>=50
+Then Locate 1,1,"BOUGHTChar!"
+M+1->M
+P-50->P
+Goto L
+Else Locate 1,1,"NO MONEY"
+IfEnd
+IfEnd
+
+If Getkey=52
+Then If P>=100
+Then Locate 1,1,"BOUGHTChar!"
+1->U
+D>0=>D-5->D
+P-100->P
+Goto L
+Else Locate 1,1,"NO MONEY"
+IfEnd
+IfEnd
+
+If Getkey=73
+Then If P>=300
+Then Locate 1,1,"BOUGHTChar!"
+1->U
+P-300->P
+Goto L
+Else Locate 1,1,"NO MONEY"
+IfEnd
+IfEnd
+
+If Getkey=63
+Then If P>=500
+Then Locate 1,1,"BOUGHTChar!"
+L-2.5->L
+P-500->P
+Goto L
+Else Locate 1,1,"NO MONEY"
+IfEnd
+IfEnd
+
+If Getkey=53
+Then If P>=1000
+Then Locate 1,1,"BOUGHTChar!"
+M*2->M
+P-1000->P
+Goto L
+Else Locate 1,1,"NO MONEY"
+IfEnd
+IfEnd
+
+Getkey=61=>Goto L
+
+WhileEnd
+
+Lbl D
